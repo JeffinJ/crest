@@ -42,12 +42,11 @@ type AuthProviderProps = {
 export function AuthProvider({ children, jwt }: AuthProviderProps) {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true);
-    
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                console.log('Fetching user')
-                const res = await fetch('http://localhost:3000/auth/profile',
+                const res = await fetch(process.env.NEXT_PUBLIC_CREST_AUTH_CENTER_URL + '/auth/profile',
                     {
                         headers: {
                             Authorization: `Bearer ${jwt}`
@@ -55,9 +54,7 @@ export function AuthProvider({ children, jwt }: AuthProviderProps) {
                     }
                 )
                 if (res.ok) {
-                    console.log('User is logged in');
                     const user = await res.json()
-                    console.log('User', user);
                     setUser(user)
                 }
             } catch (error: unknown) {
@@ -68,7 +65,7 @@ export function AuthProvider({ children, jwt }: AuthProviderProps) {
         }
         fetchUser()
     }, [jwt])
-    
+
     return (
         <AuthContext.Provider value={{ user, loading, jwt }}>
             {children}
