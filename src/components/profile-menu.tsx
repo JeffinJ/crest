@@ -17,7 +17,7 @@ type ProfileMenuProps = {
 export function ProfileMenu({ user }: ProfileMenuProps) {
     const { userName, profilePictureUrl } = user
     const imageURL = profilePictureUrl || "https://github.com/shadcn.png";
-    const { signout } = useAuth();
+    const { signOut } = useAuth();
 
     return (
         <DropdownMenu>
@@ -39,7 +39,7 @@ export function ProfileMenu({ user }: ProfileMenuProps) {
                     Support
                 </DropdownMenuItem>
                 <DropdownMenuItem className="flex flex-row gap-x-2"
-                    onClick={signout}>
+                    onClick={signOut}>
                     <LucideLogOut size={16} />
                     Log out
                 </DropdownMenuItem>

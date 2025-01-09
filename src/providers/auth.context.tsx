@@ -1,19 +1,22 @@
 "use client"
 import FullScreenLoader from "@/components/fullscreen-loader"
 import { User } from "@/types/auth.tyes"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "next/navigation"
 import { createContext, useContext } from "react"
 
 interface AuthContextType {
     user: User | null
     jwt: string | null
-    signout: () => void
+    signOut: () => void
+    isSigningOut: boolean
 }
 
 const AuthContext = createContext<AuthContextType>({
     user: null,
     jwt: null,
-    signout: () => { }
+    signOut: () => { },
+    isSigningOut: false
 })
 
 type AuthProviderProps = {
@@ -22,6 +25,9 @@ type AuthProviderProps = {
 }
 
 export function AuthProvider({ children, jwt }: AuthProviderProps) {
+    const router = useRouter();
+    const queryClient = useQueryClient();
+    
     const {
         isPending: isLoading,
         data: userData
@@ -36,8 +42,7 @@ export function AuthProvider({ children, jwt }: AuthProviderProps) {
                 }
             )
             if (!res.ok) {
-                const errorData = await res.json()
-                console.error('errorData', errorData);
+                return null
             }
             const userData = await res.json()
             return userData as User;
@@ -48,7 +53,31 @@ export function AuthProvider({ children, jwt }: AuthProviderProps) {
         refetchInterval: 5 * 60 * 1000
     });
 
-    const signout = () => { }
+    const {
+        mutate: signOut,
+        isPending: isSigningOut
+    } = useMutation({
+        mutationFn: async () => {
+            const response = await fetch('/api/auth/signout', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to sign out')
+            }
+
+            return response.json()
+        },
+        onSuccess: () => {
+            queryClient.clear()
+            router.replace('/')
+            router.refresh() 
+        }
+    })
 
     if (isLoading) return <FullScreenLoader />
 
@@ -56,7 +85,8 @@ export function AuthProvider({ children, jwt }: AuthProviderProps) {
         <AuthContext.Provider value={{
             user: userData || null,
             jwt,
-            signout
+            signOut,
+            isSigningOut
         }}>
             {children}
         </AuthContext.Provider>
