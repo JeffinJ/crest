@@ -1,25 +1,8 @@
 "use client"
 import FullScreenLoader from "@/components/fullscreen-loader"
+import { User } from "@/types/auth.tyes"
 import { useQuery } from "@tanstack/react-query"
 import { createContext, useContext } from "react"
-
-interface User {
-    id: number,
-    userId: string,
-    username: string,
-    email: string,
-    firstName: string,
-    lastName: string,
-    profilePictureUrl: string,
-    isEmailVerified: boolean,
-    accountStatus: string,
-    googleId: string,
-    discordId: string,
-    githubId: string,
-    refreshToken: string,
-    created_at: string,
-    updated_at: string
-}
 
 interface AuthContextType {
     user: User | null

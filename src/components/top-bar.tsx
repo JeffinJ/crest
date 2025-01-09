@@ -5,7 +5,6 @@ import crest from "../../public/assets/gem.png";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth.context";
-import { User } from "lucide-react";
 import { ProfileMenu } from "./profile-menu";
 
 export default function TopBar() {
@@ -13,10 +12,7 @@ export default function TopBar() {
     const handleSignIn = () => {
         router.push(`${process.env.NEXT_PUBLIC_CREST_AUTH_CENTER_URL}/auth/google/signin`);
     };
-
     const { user } = useAuth();
-    console.log(user);
-
 
     return (
         <div className="sticky top-0 z-50 w-full h-[80px] bg-secondary-50">
@@ -36,15 +32,7 @@ export default function TopBar() {
                 <div>
                     {user ?
                         (<>
-                            <div className="flex flex-row space-x-2 items-center">
-                                <div>
-                                    <User />
-                                </div>
-                                <ProfileMenu />
-                                <div>
-                                    {user.firstName}
-                                </div>
-                            </div>
+                            <ProfileMenu user={user} />
                         </>) :
                         (<>
                             <Button
