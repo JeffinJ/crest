@@ -29,16 +29,16 @@ export function ProfileMenu({ user }: ProfileMenuProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-fit mt-2  bg-slate-900  text-white  border-slate-700">
                 <DropdownMenuGroup>
-                    <DropdownMenuItem className="flex flex-row gap-x-2">
+                    <DropdownMenuItem className="flex flex-row gap-x-2 cursor-pointer">
                         <Settings2Icon size={16} />
                         Settings
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
-                <DropdownMenuItem className="flex flex-row gap-x-2">
+                <DropdownMenuItem className="flex flex-row gap-x-2 cursor-pointer">
                     <HelpCircle size={16} />
                     Support
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex flex-row gap-x-2"
+                <DropdownMenuItem className="flex flex-row gap-x-2 cursor-pointer"
                     onClick={signOut}>
                     <LucideLogOut size={16} />
                     Log out
