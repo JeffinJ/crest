@@ -10,7 +10,7 @@ import { User } from "lucide-react";
 export default function TopBar() {
     const router = useRouter();
     const handleSignIn = () => {
-        router.push("http://localhost:3000/auth/google/signin");
+        router.push(`${process.env.NEXT_PUBLIC_CREST_AUTH_CENTER_URL}/auth/google/signin`);
     };
 
     const { user } = useAuth();
