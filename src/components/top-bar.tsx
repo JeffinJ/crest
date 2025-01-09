@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth.context";
 import { User } from "lucide-react";
+import { ProfileMenu } from "./profile-menu";
 
 export default function TopBar() {
     const router = useRouter();
@@ -39,6 +40,7 @@ export default function TopBar() {
                                 <div>
                                     <User />
                                 </div>
+                                <ProfileMenu />
                                 <div>
                                     {user.firstName}
                                 </div>
