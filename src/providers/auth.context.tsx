@@ -1,12 +1,13 @@
 "use client"
-import { createContext, useContext, useEffect, useState } from "react"
+import FullScreenLoader from "@/components/fullscreen-loader"
+import { useQuery } from "@tanstack/react-query"
+import { createContext, useContext } from "react"
 
 interface User {
     id: number,
     userId: string,
     username: string,
     email: string,
-    passwordHash: string,
     firstName: string,
     lastName: string,
     profilePictureUrl: string,
@@ -16,22 +17,20 @@ interface User {
     discordId: string,
     githubId: string,
     refreshToken: string,
-    passwordResetToken: string | null,
-    passwordResetTokenExpiresAt: string | null,
     created_at: string,
     updated_at: string
 }
 
 interface AuthContextType {
     user: User | null
-    loading: boolean,
     jwt: string | null
+    signout: () => void
 }
 
 const AuthContext = createContext<AuthContextType>({
     user: null,
-    loading: true,
-    jwt: null
+    jwt: null,
+    signout: () => { }
 })
 
 type AuthProviderProps = {
@@ -40,34 +39,42 @@ type AuthProviderProps = {
 }
 
 export function AuthProvider({ children, jwt }: AuthProviderProps) {
-    const [user, setUser] = useState<User | null>(null)
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const res = await fetch(process.env.NEXT_PUBLIC_CREST_AUTH_CENTER_URL + '/auth/profile',
-                    {
-                        headers: {
-                            Authorization: `Bearer ${jwt}`
-                        }
+    const {
+        isPending: isLoading,
+        data: userData
+    } = useQuery({
+        queryKey: ['user', jwt],
+        queryFn: async () => {
+            const res = await fetch(process.env.NEXT_PUBLIC_CREST_AUTH_CENTER_URL + '/auth/profile',
+                {
+                    headers: {
+                        Authorization: `Bearer ${jwt}`
                     }
-                )
-                if (res.ok) {
-                    const user = await res.json()
-                    setUser(user)
                 }
-            } catch (error: unknown) {
-                console.error('Failed to fetch user', error);
-                setUser(null)
+            )
+            if (!res.ok) {
+                const errorData = await res.json()
+                console.error('errorData', errorData);
             }
-            setLoading(false)
-        }
-        fetchUser()
-    }, [jwt])
+            const userData = await res.json()
+            return userData as User;
+        },
+        retry: 1,
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: true,
+        refetchInterval: 5 * 60 * 1000
+    });
+
+    const signout = () => { }
+
+    if (isLoading) return <FullScreenLoader />
 
     return (
-        <AuthContext.Provider value={{ user, loading, jwt }}>
+        <AuthContext.Provider value={{
+            user: userData || null,
+            jwt,
+            signout
+        }}>
             {children}
         </AuthContext.Provider>
     )
@@ -81,3 +88,4 @@ export function useAuth() {
     return context;
 }
 
+if (!process.env.NEXT_PUBLIC_CREST_AUTH_CENTER_URL) throw new Error('NEXT_PUBLIC_CREST_AUTH_CENTER_URL is not defined');

@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/providers/auth.context";
 import { getServerSession } from "@/lib/auth/session";
 import TopBar from "@/components/top-bar";
+import QueryClientWrapper from "@/providers/query-client.provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   description: "Your global profile",
 };
 
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -32,13 +34,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <AuthProvider jwt={token}>
-          <div className="flex flex-col h-screen overflow-hidden bg-stone-900 text-white px-60">
-            <TopBar />
-            {children}
-          </div>
-        </AuthProvider>
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-stone-900 text-white`}>
+        <QueryClientWrapper>
+          <AuthProvider jwt={token}>
+            <div className="flex flex-col h-screen overflow-hidden  px-60">
+              <TopBar />
+              {children}
+            </div>
+          </AuthProvider>
+        </QueryClientWrapper>
       </body>
     </html>
   );
