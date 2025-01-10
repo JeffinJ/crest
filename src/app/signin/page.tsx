@@ -1,6 +1,6 @@
 import emerald from "../../../public/assets/gem.png"
 import Image from "next/image";
-import { SignupFormDemo } from "@/components/signup-form";
+import { SignInCard } from "@/components/signin-card";
 
 export default function SignInPage() {
     return (
@@ -19,16 +19,9 @@ export default function SignInPage() {
                 </div>
             </div>
             <div className="w-1/2 h-full flex flex-col gap-y-5 items-start justify-center">
-
                 <div className="flex flex-col gap-y-2">
-                    <SignupFormDemo />
+                    <SignInCard />
                 </div>
-
-                {/* <div className="flex flex-col gap-y-1 w-1/2">
-                    <div>SignIn with Email</div>
-                    <SignInForm />
-                </div> */}
-
             </div>
         </div>
     )

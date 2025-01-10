@@ -3,12 +3,16 @@
 import Image from "next/image";
 import crest from "../../public/assets/gem.png";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth.context";
 import { ProfileMenu } from "./profile-menu";
+import ButtonWithGradient from "./ui/button-with-gradient";
 
 export default function TopBar() {
     const router = useRouter();
+    const pathName = usePathname();
+    const isAdminRoute = pathName.includes("/admin");
+
     const handleSignIn = () => {
         router.push(`${process.env.NEXT_PUBLIC_CREST_AUTH_CENTER_URL}/auth/google/signin`);
     };
@@ -29,17 +33,23 @@ export default function TopBar() {
                         CREST
                     </div>
                 </div>
-                <div>
+                <div className="flex flex-row space-x-2 items-center">
+                    {!isAdminRoute && (
+                        <ButtonWithGradient
+                            onClick={() => router.push('/admin')}>
+                            <div>
+                                Manage
+                            </div>
+                        </ButtonWithGradient>
+                    )}
+
                     {user ?
-                        (<>
-                            <ProfileMenu user={user} />
-                        </>) :
-                        (<>
-                            <Button
-                                variant={'ghost'}
-                                onClick={handleSignIn}
-                                className="">Sign In</Button></>
-                        )}
+                        (<ProfileMenu user={user} />) :
+                        (<Button
+                            variant={'ghost'}
+                            onClick={handleSignIn}
+                            className="">Sign In</Button>)}
+
                 </div>
             </div>
         </div>

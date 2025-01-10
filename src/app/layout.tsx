@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import TopBar from "@/components/top-bar";
+import { getServerSession } from "@/lib/auth/session";
+import QueryClientWrapper from "@/providers/query-client.provider";
+import { AuthProvider } from "@/providers/auth.context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,14 +27,21 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getServerSession();
+  const token = session ? session.value : null;
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-stone-900 text-white dark`}>
-        <div className="flex flex-col h-screen overflow-hidden  px-60">
-          {children}
-        </div>
+        <QueryClientWrapper>
+          <AuthProvider jwt={token}>
+            <div className="flex flex-col h-screen overflow-hidden  px-60">
+              <TopBar />
+              {children}
+            </div>
+          </AuthProvider>
+        </QueryClientWrapper>
       </body>
     </html>
   );

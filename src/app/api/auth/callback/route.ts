@@ -8,7 +8,7 @@ export async function GET(request: Request) {
         return NextResponse.redirect(new URL('/auth/error', request.url))
     }
 
-    const response = NextResponse.redirect(new URL('/', request.url))
+    const response = NextResponse.redirect(new URL('/admin', request.url))
     response.cookies.set('jwt', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
@@ -16,5 +16,5 @@ export async function GET(request: Request) {
         maxAge: 60 * 60 * 24 * 7 // 1 week
     })
 
-    return response
+    return response;
 }
