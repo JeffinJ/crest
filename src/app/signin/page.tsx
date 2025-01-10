@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
 import emerald from "../../../public/assets/gem.png"
 import Image from "next/image";
+import { SignupFormDemo } from "@/components/signup-form";
 
 export default function SignInPage() {
     return (
@@ -20,13 +20,8 @@ export default function SignInPage() {
             </div>
             <div className="w-1/2 h-full flex flex-col gap-y-5 items-start justify-center">
 
-                <div className="flex flex-col gap-y-1">
-                    <div>
-                        <h1 className="font-semibold text-2xl uppercase text-emerald-500 font-RubikVinyl">Join Now</h1>
-                    </div>
-                    <Button className="p-2">
-                        SignIn with Google
-                    </Button>
+                <div className="flex flex-col gap-y-2">
+                    <SignupFormDemo />
                 </div>
 
                 {/* <div className="flex flex-col gap-y-1 w-1/2">

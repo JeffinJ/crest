@@ -74,7 +74,7 @@ export function AuthProvider({ children, jwt }: AuthProviderProps) {
         },
         onSuccess: () => {
             queryClient.clear()
-            router.replace('/')
+            router.replace('/signin')
             router.refresh() 
         }
     })
