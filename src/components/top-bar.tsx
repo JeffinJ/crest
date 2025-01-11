@@ -20,8 +20,8 @@ export default function TopBar() {
 
     return (
         <div className="sticky top-0 z-50 w-full h-[80px] bg-secondary-50">
-            <div className="flex justify-between items-center p-5">
-                <div className="flex flex-row space-x-2 items-center">
+            <div className="flex justify-between items-center py-5 ">
+                <div className="flex flex-row space-x-2 items-center ">
                     <div>
                         <Image
                             src={crest}
