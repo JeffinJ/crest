@@ -34,17 +34,21 @@ export default function TopBar() {
                     </div>
                 </div>
                 <div className="flex flex-row space-x-2 items-center">
-                    {!isAdminRoute && (
-                        <ButtonWithGradient
-                            onClick={() => router.push('/admin')}>
-                            <div>
-                                Manage
-                            </div>
-                        </ButtonWithGradient>
-                    )}
+
 
                     {user ?
-                        (<ProfileMenu user={user} />) :
+                        (
+                            <>
+                                {!isAdminRoute && (
+                                    <ButtonWithGradient
+                                        onClick={() => router.push('/admin')}>
+                                        <div>
+                                            Manage
+                                        </div>
+                                    </ButtonWithGradient>
+                                )}
+                                <ProfileMenu user={user} />
+                            </>) :
                         (<Button
                             variant={'ghost'}
                             onClick={handleSignIn}
