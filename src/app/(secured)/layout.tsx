@@ -9,7 +9,7 @@ export default async function AdminLayout({
     return (
         <SidebarProvider>
             <AppSidebar />
-            <main className="p-5">
+            <main className="p-5 w-full">
                 {children}
             </main>
         </SidebarProvider>

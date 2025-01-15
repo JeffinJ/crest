@@ -35,7 +35,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-stone-900 text-white dark`}>
         <QueryClientWrapper>
           <AuthProvider jwt={token}>
-            <div className="flex flex-col h-screen overflow-hidden  px-5">
+            <div className="flex flex-col h-screen overflow-hidden px-5">
               {children}
             </div>
           </AuthProvider>

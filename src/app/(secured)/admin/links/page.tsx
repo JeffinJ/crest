@@ -1,12 +1,11 @@
-import { Button } from "@/components/ui/button";
+import AccountConnections from "./_components/account-connections";
 
 export default function ManageLinksPage() {
     return (
-        <div>
-            <h1>Manage Links</h1>
-            <Button>
-                Connect your Youtube account
-            </Button>
+        <div className="flex flex-col space-y-5 p-10  w-full">
+            <div className="w-full">
+                <AccountConnections />
+            </div>
         </div>
     )
 };
