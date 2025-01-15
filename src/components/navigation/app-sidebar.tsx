@@ -74,7 +74,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             CREST
                         </div>
                     </div>
-                    <SidebarTrigger />
+                    <SidebarTrigger disabled />
                 </div>
             </SidebarHeader>
             <SidebarContent>
