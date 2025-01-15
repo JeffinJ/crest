@@ -43,13 +43,13 @@ const data = {
         },
         {
             title: "Analytics",
-            url: "#",
+            url: "/admin/analytics",
             icon: Bot,
             isActive: false,
         },
         {
             title: "Settings",
-            url: "#",
+            url: "/admin/settings",
             icon: Settings2,
             isActive: false,
         },
