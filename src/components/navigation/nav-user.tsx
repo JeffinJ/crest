@@ -29,6 +29,7 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/ui/sidebar"
+import { useAuth } from "@/providers/auth.context"
 
 export function NavUser({
     user,
@@ -40,6 +41,7 @@ export function NavUser({
     }
 }) {
     const { isMobile } = useSidebar()
+    const { user: signedInUser } = useAuth()
 
     return (
         <SidebarMenu>
@@ -51,12 +53,12 @@ export function NavUser({
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
                             <Avatar className="h-8 w-8 rounded-lg">
-                                <AvatarImage src={user.avatar} alt={user.name} />
+                                <AvatarImage src={user.avatar} alt={signedInUser?.firstName} />
                                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-semibold">{user.name}</span>
-                                <span className="truncate text-xs">{user.email}</span>
+                                <span className="truncate font-semibold">{signedInUser?.firstName}</span>
+                                <span className="truncate text-xs">{signedInUser?.email}</span>
                             </div>
                             <ChevronsUpDown className="ml-auto size-4" />
                         </SidebarMenuButton>
