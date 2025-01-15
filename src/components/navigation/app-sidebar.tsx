@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/sidebar"
 import { NavMain } from "./nav-main"
 import { NavUser } from "./nav-user"
+import Image from "next/image";
+import crest from "../../../public/assets/gem.png";
 
 const data = {
     user: {
@@ -47,6 +49,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar collapsible="icon" {...props}>
             <SidebarHeader>
+                <div className="flex flex-row space-x-2 items-center py-2">
+                    <div>
+                        <Image
+                            src={crest}
+                            alt="Crest"
+                            width={40}
+                            height={40} />
+                    </div>
+                    <div className="text-lg font-bold font-RubikVinyl">
+                        CREST
+                    </div>
+                </div>
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain} />
