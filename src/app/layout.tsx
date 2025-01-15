@@ -4,7 +4,6 @@ import "./globals.css";
 import { getServerSession } from "@/lib/auth/session";
 import QueryClientWrapper from "@/providers/query-client.provider";
 import { AuthProvider } from "@/providers/auth.context";
-import TopBar from "@/components/navigation/top-bar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,7 +36,6 @@ export default async function RootLayout({
         <QueryClientWrapper>
           <AuthProvider jwt={token}>
             <div className="flex flex-col h-screen overflow-hidden  px-5">
-              <TopBar />
               {children}
             </div>
           </AuthProvider>
