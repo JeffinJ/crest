@@ -3,6 +3,7 @@
 import * as React from "react"
 import {
     Bot,
+    LayoutDashboardIcon,
     Settings2,
     SquareTerminal,
 } from "lucide-react"
@@ -27,20 +28,28 @@ const data = {
     },
     navMain: [
         {
+            title: "Dashboard",
+            url: "/admin",
+            icon: LayoutDashboardIcon,
+            isActive: false,
+        },
+        {
             title: "Links",
-            url: "#",
+            url: "/admin/links",
             icon: SquareTerminal,
-            isActive: true,
+            isActive: false,
         },
         {
             title: "Analytics",
             url: "#",
             icon: Bot,
+            isActive: false,
         },
         {
             title: "Settings",
             url: "#",
             icon: Settings2,
+            isActive: false,
         },
     ],
 }
