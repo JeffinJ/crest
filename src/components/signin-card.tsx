@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import {
+    IconBrandApple,
     IconBrandGoogle,
 } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
@@ -16,7 +17,7 @@ export function SignInCard() {
             <h1 className="font-semibold text-2xl text-emerald-500">
                 Welcome back!
             </h1>
-            <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
+            <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-400">
                 Your one global profile for all your social media accounts. No more link trees. Create and manage your circle of friends.
             </p>
             <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
@@ -26,11 +27,23 @@ export function SignInCard() {
                     type="button"
                     onClick={handleSignIn}
                 >
-                    <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+                    <IconBrandGoogle className="h-5 w-5 text-neutral-800 dark:text-neutral-300" />
                     <span className="text-neutral-700 dark:text-neutral-300 text-sm">
                         Sign in with  Google
                     </span>
                     <BottomGradient />
+                </button>
+                <button
+                    className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)] 
+                    disabled:opacity-50 disabled:cursor-not-allowed"
+                    type="button"
+                    disabled
+                    onClick={handleSignIn}
+                >
+                    <IconBrandApple className="h-5 w-5 text-neutral-800 dark:text-neutral-300" />
+                    <span className="text-neutral-700 dark:text-neutral-300 text-sm">
+                        Sign in with  Apple
+                    </span>
                 </button>
             </div>
         </div>

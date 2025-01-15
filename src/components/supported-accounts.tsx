@@ -72,40 +72,43 @@ export const SupportedPlatformsPin = ({
 export const PinPerspective = () => {
     return (
         <motion.div className="pointer-events-none  w-96 h-80 flex items-center justify-center opacity-0 group-hover/pin:opacity-100 z-[60] transition duration-500">
-            <div className=" w-full h-full -mt-7 flex-none  inset-0">
+            <div className="w-full h-full -mt-7 flex-none  inset-0">
 
                 <div className="absolute top-0 inset-x-0  flex justify-center">
-                    <div className="relative flex space-x-2 items-center z-10 rounded-full py-0.5 px-4 ring-1 bg-zinc-950">
-                        <div className="flex flex-row space-x-2 items-center">
-                            <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
-                                <SiInstagram color={SiInstagramHex} />
+                    <div>
+                        <div className="flex items-center justify-start px-0 w-full text-emerald-500 font-semibold">@lebowski</div>
+                        <div className="relative flex space-x-2 items-center z-10 rounded-full py-0.5 px-4 ring-1 bg-zinc-950">
+                            <div className="flex flex-row space-x-2 items-center">
+                                <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
+                                    <SiInstagram color={SiInstagramHex} />
+                                </div>
+                                <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
+                                    <SiX color="white" />
+                                </div>
+                                <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
+                                    <SiYoutube color={SiYoutubeHex} />
+                                </div>
+                                <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
+                                    <SiTiktok color="white" />
+                                </div>
+                                <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
+                                    <IconBrandLinkedin />
+                                </div>
+                                <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
+                                    <SiGithub color={'white'} />
+                                </div>
+                                <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
+                                    <SiFacebook color={SiFacebookHex} />
+                                </div>
+                                <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
+                                    <SiWhatsapp color={SiWhatsappHex} />
+                                </div>
+                                <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
+                                    <SiOnlyfans color={SiOnlyfansHex} />
+                                </div>
                             </div>
-                            <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
-                                <SiX color="white" />
-                            </div>
-                            <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
-                                <SiYoutube color={SiYoutubeHex} />
-                            </div>
-                            <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
-                                <SiTiktok color="white" />
-                            </div>
-                            <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
-                                <IconBrandLinkedin />
-                            </div>
-                            <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
-                                <SiGithub color={'white'} />
-                            </div>
-                            <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
-                                <SiFacebook color={SiFacebookHex} />
-                            </div>
-                            <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
-                                <SiWhatsapp color={SiWhatsappHex} />
-                            </div>
-                            <div className="relative z-20 text-white text-xs font-bold inline-block  bg-zinc-950  py-4 px-4 rounded-lg">
-                                <SiOnlyfans color={SiOnlyfansHex} />
-                            </div>
+                            <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover/btn:opacity-40"></span>
                         </div>
-                        <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover/btn:opacity-40"></span>
                     </div>
                 </div>
 
