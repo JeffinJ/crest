@@ -1,11 +1,18 @@
+import { AppSidebar } from "@/components/navigation/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+
 export default async function AdminLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
-        <div className="">
-            {children}
-        </div>
+        <SidebarProvider>
+            <AppSidebar />
+            <main>
+                <SidebarTrigger />
+                {children}
+            </main>
+        </SidebarProvider>
     );
 }

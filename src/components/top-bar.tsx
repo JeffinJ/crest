@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth.context";
 import { ProfileMenu } from "./profile-menu";
 import ButtonWithGradient from "./ui/button-with-gradient";
+import { cn } from "@/lib/utils";
 
 export default function TopBar() {
     const router = useRouter();
@@ -20,22 +21,23 @@ export default function TopBar() {
 
     return (
         <div className="sticky top-0 z-50 w-full h-[80px] bg-secondary-50">
-            <div className="flex justify-between items-center py-5 ">
+            <div className={cn("flex justify-between items-center py-5 ", isAdminRoute ? "justify-end" : "justify-between")}>
+                {!isAdminRoute && (
+                    <div className="flex flex-row space-x-2 items-center ">
+                        <div>
+                            <Image
+                                src={crest}
+                                alt="Crest"
+                                width={40}
+                                height={40} />
+                        </div>
+                        <div className="text-lg font-bold font-RubikVinyl">
+                            CREST
+                        </div>
+                    </div>
+                )}
+
                 <div className="flex flex-row space-x-2 items-center ">
-                    <div>
-                        <Image
-                            src={crest}
-                            alt="Crest"
-                            width={40}
-                            height={40} />
-                    </div>
-                    <div className="text-lg font-bold font-RubikVinyl">
-                        CREST
-                    </div>
-                </div>
-                <div className="flex flex-row space-x-2 items-center">
-
-
                     {user ?
                         (
                             <>
