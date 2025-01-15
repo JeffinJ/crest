@@ -17,12 +17,14 @@ export const BackgroundLines = ({
     return (
         <div
             className={cn(
-                "h-[20rem] md:h-screen w-full bg-white dark:bg-zinc-950",
+                "h-[20rem] md:h-screen w-full bg-white dark:bg-zinc-950 relative",
                 className
-            )}
-        >
+            )}>
             <SVG svgOptions={svgOptions} />
-            {children}
+            <div className=" absolute bg-gradient-to-r from-zinc-950/90 via-zinc-950/50 to-zinc-950/90 min-h-screen w-full " />
+            <div>
+                {children}
+            </div>
         </div>
     );
 };
