@@ -6,7 +6,7 @@ import emerald from "../../public/assets/gem.png";
 
 export function AnimatedHeroCard() {
     return (
-        <div className="h-[40rem] w-full flex items-center justify-center ">
+        <div className="h-[30rem] w-full flex items-center justify-center ">
             <SupportedPlatformsPin>
                 <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem] ">
                     <div className="font-semibold text-4xl text-emerald-500 font-RubikVinyl text-center">
