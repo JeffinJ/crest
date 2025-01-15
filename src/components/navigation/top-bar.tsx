@@ -1,13 +1,13 @@
 
 "use client"
 import Image from "next/image";
-import crest from "../../public/assets/gem.png";
-import { Button } from "./ui/button";
+import crest from "../../../public/assets/gem.png";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth.context";
-import { ProfileMenu } from "./profile-menu";
-import ButtonWithGradient from "./ui/button-with-gradient";
 import { cn } from "@/lib/utils";
+import ButtonWithGradient from "../ui/button-with-gradient";
+import { ProfileMenu } from "../profile-menu";
+import { Button } from "../ui/button";
 
 export default function TopBar() {
     const router = useRouter();
