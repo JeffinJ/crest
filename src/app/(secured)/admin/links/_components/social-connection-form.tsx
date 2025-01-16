@@ -86,9 +86,6 @@ export default function SocialConnectionForm() {
                             <div>{selectedPlatform.name}</div>
                         </div>
                         <div className="flex flex-row space-x-2 items-center justify-start">
-                            <div className="">
-                                <Link className="w-3 h-3" />
-                            </div>
                             <Input
                                 placeholder="Profile URL"
                                 className="placeholder-gray-400 dark:placeholder-gray-500" />
@@ -96,6 +93,7 @@ export default function SocialConnectionForm() {
                         <div>
                             <ButtonWithGradient
                                 type="button"
+                                className=""
                                 gradientColors={{
                                     via1: "emerald-500",
                                     via2: "emerald-400"
