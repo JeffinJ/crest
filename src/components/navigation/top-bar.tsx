@@ -5,9 +5,9 @@ import crest from "../../../public/assets/gem.png";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth.context";
 import { cn } from "@/lib/utils";
-import ButtonWithGradient from "../ui/button-with-gradient";
 import { ProfileMenu } from "../profile-menu";
 import { Button } from "../ui/button";
+import { ButtonWithGradient } from "../ui/button-with-gradient";
 
 export default function TopBar() {
     const router = useRouter();
