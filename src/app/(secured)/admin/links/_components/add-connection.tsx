@@ -18,13 +18,13 @@ export default function AddConnection() {
                 <ButtonWithGradient
                     type="button"
                     onClick={() => { setSelectedConnection('custom') }} className="">
-                    <Link2 className="w-6 h-6" />
+                    <Link2 className="w-6 h-6 text-slate-500" />
                     <div>Add custom connection</div>
                 </ButtonWithGradient>
                 <ButtonWithGradient
                     type="button"
                     onClick={() => { setSelectedConnection('social') }} className="">
-                    <IconSocial className="w-6 h-6" />
+                    <IconSocial className="w-6 h-6 text-emerald-500" />
                     <div>Add social connection</div>
                 </ButtonWithGradient>
             </div>
