@@ -25,7 +25,7 @@ export default function AddConnection() {
                     type="button"
                     onClick={() => { setSelectedConnection('social') }} className="">
                     <IconSocial className="w-6 h-6" />
-                    <div>Add custom connection</div>
+                    <div>Add social connection</div>
                 </ButtonWithGradient>
             </div>
 
