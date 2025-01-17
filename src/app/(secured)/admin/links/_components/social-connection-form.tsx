@@ -1,7 +1,7 @@
 import { ButtonWithGradient } from "@/components/ui/button-with-gradient";
 import { Input } from "@/components/ui/input";
+import { SocialConnection } from "@/types/connection.types";
 import {
-    IconType,
     SiFacebook,
     SiFacebookHex,
     SiGithub,
@@ -14,16 +14,9 @@ import {
     SiYoutube,
     SiYoutubeHex
 } from "@icons-pack/react-simple-icons";
-import { Icon, IconBrandLinkedin, IconProps } from "@tabler/icons-react";
+import { IconBrandLinkedin } from "@tabler/icons-react";
 import { Link } from "lucide-react";
-import { ForwardRefExoticComponent, RefAttributes, useState } from "react";
-
-type SocialConnection = {
-    id: string;
-    name: string;
-    icon: IconType | ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>;
-    color?: string;
-};
+import { useState } from "react";
 
 const SupportedSocialConnections: SocialConnection[] = [
     {
