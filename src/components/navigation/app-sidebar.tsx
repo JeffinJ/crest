@@ -49,10 +49,42 @@ const data = {
         },
         {
             title: "Settings",
-            url: "/admin/settings",
+            url: "#",
             icon: Settings2,
-            isActive: false,
+            items: [
+                {
+                    title: "General",
+                    url: "#",
+                },
+                {
+                    title: "Team",
+                    url: "#",
+                },
+                {
+                    title: "Billing",
+                    url: "#",
+                },
+                {
+                    title: "Limits",
+                    url: "#",
+                },
+            ],
         },
+        {
+            title: "Help",
+            url: "#",
+            icon: Settings2,
+            items: [
+                {
+                    title: "Documentation",
+                    url: "#",
+                },
+                {
+                    title: "Support",
+                    url: "#",
+                },
+            ],
+        }
     ],
 }
 
