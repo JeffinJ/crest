@@ -1,9 +1,15 @@
 import { ButtonWithGradient } from "@/components/ui/button-with-gradient";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/providers/auth.context";
+import { CreateConnectionData } from "@/types/connection.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useAction } from "next-safe-action/hooks";
+import { createUserConnectionAction } from "@/server/actions/connections/create-connection.action";
+import { useToast } from "@/hooks/use-toast";
+import { LoaderCircle } from "lucide-react";
 
 const CustomConnectionFormSchema = z.object({
     name: z.string(),
@@ -12,11 +18,12 @@ const CustomConnectionFormSchema = z.object({
 
 type CustomConnectionFormProps = {
     initialData?: z.infer<typeof CustomConnectionFormSchema>;
-    onSaved: () => void;
+    onSave: (connectionData: unknown) => void;
     onCanceled: () => void;
 };
 
-export default function CustomConnectionForm({ initialData, onSaved, onCanceled }: CustomConnectionFormProps) {
+export default function CustomConnectionForm({ initialData, onSave, onCanceled }: CustomConnectionFormProps) {
+    const { user } = useAuth();
 
     const customConnectionForm = useForm<z.infer<typeof CustomConnectionFormSchema>>({
         resolver: zodResolver(CustomConnectionFormSchema),
@@ -26,9 +33,47 @@ export default function CustomConnectionForm({ initialData, onSaved, onCanceled 
         }
     });
 
+    const { toast } = useToast();
+
+    const {
+        execute: executeCreateUserConnectionAction,
+        result: createUserConnectionResult,
+        isExecuting: isCreatingUserConnection,
+        reset: resetCreateUserConnectionAction
+    } = useAction(createUserConnectionAction, {
+        onSuccess: ({ data }) => {
+            console.log(data);
+            customConnectionForm.reset(initialData);
+            toast({
+                variant: "default",
+                title: "Connection created",
+                description: "Connection created successfully",
+                duration: 5000,
+            });
+            onSave(createUserConnectionResult.data);
+        },
+        onError: (error) => {
+            console.error(error);
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "An error occurred while creating connection",
+                duration: 5000,
+            });
+        }
+    });
+
     const onFormSubmit = (formValues: z.infer<typeof CustomConnectionFormSchema>) => {
         console.log(formValues);
-        onSaved();
+        if (!user) throw new Error("User not found");
+
+        const connectionData: CreateConnectionData = {
+            userId: user.userId,
+            connectionName: formValues.name,
+            url: formValues.url,
+        }
+
+        executeCreateUserConnectionAction(connectionData);
     };
 
     return (
@@ -43,6 +88,7 @@ export default function CustomConnectionForm({ initialData, onSaved, onCanceled 
                                 <FormItem>
                                     <FormControl>
                                         <Input {...field}
+                                            disabled={isCreatingUserConnection}
                                             className="placeholder-gray-400 dark:placeholder-gray-500"
                                             placeholder="Connection name" />
                                     </FormControl>
@@ -56,6 +102,7 @@ export default function CustomConnectionForm({ initialData, onSaved, onCanceled 
                                 <FormItem>
                                     <FormControl>
                                         <Input {...field}
+                                            disabled={isCreatingUserConnection}
                                             className="placeholder-gray-400 dark:placeholder-gray-500"
                                             placeholder="URL" />
                                     </FormControl>
@@ -66,12 +113,19 @@ export default function CustomConnectionForm({ initialData, onSaved, onCanceled 
                             <ButtonWithGradient
                                 type="submit"
                                 variant={'ghost'}
+                                disabled={isCreatingUserConnection}
                                 className="text-emerald-400 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-500"
                                 gradientColors={{
                                     via1: "emerald-500",
                                     via2: "cyan-500"
                                 }}>
-                                Save
+                                {isCreatingUserConnection ?
+                                    <>
+                                        <LoaderCircle className="w-5 h-5 animate-spin" />
+                                        <span className="ml-2">Saving...</span>
+                                    </> :
+                                    "Save"
+                                }
                             </ButtonWithGradient>
 
                             <ButtonWithGradient
@@ -81,7 +135,11 @@ export default function CustomConnectionForm({ initialData, onSaved, onCanceled 
                                     via1: "red-500",
                                     via2: "pink-500"
                                 }}
-                                onClick={onCanceled}>
+                                onClick={() => {
+                                    customConnectionForm.reset(initialData);
+                                    resetCreateUserConnectionAction();
+                                    onCanceled();
+                                }}>
                                 Cancel
                             </ButtonWithGradient>
                         </div>

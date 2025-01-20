@@ -14,3 +14,9 @@ export type SocialConnection = {
     icon: IconType | ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>;
     color?: string;
 };
+
+export type CreateConnectionData = {
+    userId: string;
+    connectionName: string;
+    url: string;
+};

@@ -114,7 +114,7 @@ export default function ConnectionCard({ connection }: ConnectionCardProps) {
                                 name: connection.connectionName,
                                 url: connection.url,
                             }}
-                            onSaved={() => { }}
+                            onSave={() => { }}
                             onCanceled={() => {
                                 setMode('view')
                             }} />
