@@ -5,8 +5,8 @@ import { IconSocial } from "@tabler/icons-react"
 import { Link2 } from "lucide-react"
 import { useState } from "react"
 import CustomConnectionForm from "./custom-connection-form"
-import SocialConnectionForm from "./social-connection-form"
 import { useQueryClient } from "@tanstack/react-query"
+import SocialConnectionSelector from "./social-connection-selector"
 
 type ConnectionType = "social" | "custom"
 
@@ -49,7 +49,7 @@ export default function AddConnection() {
                                     }} />
                             </div> :
                             <div>
-                                <SocialConnectionForm />
+                                <SocialConnectionSelector />
                             </div>
                         }
                     </>
