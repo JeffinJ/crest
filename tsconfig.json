@@ -21,6 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@zod-schemas/*": ["./src/lib/zod-schemas/*"],
+      "@@config/*": ["./src/config/*"],
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

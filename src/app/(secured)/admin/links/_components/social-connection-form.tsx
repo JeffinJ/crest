@@ -1,69 +1,9 @@
 import { ButtonWithGradient } from "@/components/ui/button-with-gradient";
 import { Input } from "@/components/ui/input";
+import { SUPPORTED_SOCIAL_PLATFORMS } from "@/config/app-config";
 import { SocialConnection } from "@/types/connection.types";
-import {
-    SiFacebook,
-    SiFacebookHex,
-    SiGithub,
-    SiInstagram,
-    SiInstagramHex,
-    SiTiktok,
-    SiWhatsapp,
-    SiWhatsappHex,
-    SiX,
-    SiYoutube,
-    SiYoutubeHex
-} from "@icons-pack/react-simple-icons";
-import { IconBrandLinkedin } from "@tabler/icons-react";
 import { Link } from "lucide-react";
 import { useState } from "react";
-
-const SupportedSocialConnections: SocialConnection[] = [
-    {
-        id: 'x',
-        name: "X",
-        icon: SiX,
-    },
-    {
-        id: 'instagram',
-        name: "Instagram",
-        icon: SiInstagram,
-        color: SiInstagramHex,
-    },
-    {
-        id: 'youtube',
-        name: "YouTube",
-        icon: SiYoutube,
-        color: SiYoutubeHex,
-    },
-    {
-        id: 'tiktok',
-        name: "TikTok",
-        icon: SiTiktok,
-    },
-    {
-        id: 'linkedin',
-        name: "LinkedIn",
-        icon: IconBrandLinkedin,
-    },
-    {
-        id: 'github',
-        name: "GitHub",
-        icon: SiGithub,
-    },
-    {
-        id: 'facebook',
-        name: "Facebook",
-        icon: SiFacebook,
-        color: SiFacebookHex,
-    },
-    {
-        id: 'whatsapp',
-        name: "WhatsApp",
-        icon: SiWhatsapp,
-        color: SiWhatsappHex,
-    },
-];
 
 export default function SocialConnectionForm() {
 
@@ -102,7 +42,7 @@ export default function SocialConnectionForm() {
                     <div className="flex flex-col space-y-3">
                         <div>Add a social connection</div>
                         <div className="flex flex-wrap items-center justify-center gap-5">
-                            {SupportedSocialConnections.map((connection) => {
+                            {SUPPORTED_SOCIAL_PLATFORMS.map((connection) => {
                                 const Icon = connection.icon;
                                 return (
                                     <ButtonWithGradient
