@@ -7,14 +7,14 @@ import { useQuery } from "@tanstack/react-query";
 import ConnectionCard from "./connection-card";
 
 export default function Connections() {
-    const { jwt } = useAuth();
+    const { jwt, user } = useAuth();
     const {
         data: connections,
         isPending
     } = useQuery({
         queryKey: ["links"],
         queryFn: async () => {
-            const res = await fetch(process.env.NEXT_PUBLIC_CREST_AUTH_CENTER_URL + '/auth/connection',
+            const res = await fetch(process.env.NEXT_PUBLIC_CREST_AUTH_CENTER_URL + '/auth/connection/user/' + user?.userId,
                 {
                     headers: {
                         Authorization: `Bearer ${jwt}`
