@@ -64,7 +64,11 @@ export default function CreateSocialConnection({
     };
 
     return (
-        <div>
+        <div className="flex flex-col space-y-3">
+            <div className="flex flex-row space-x-3 items-center justify-start">
+                <platform.icon className="w-5 h-5" color={platform.color} />
+                <div>{platform.name}</div>
+            </div>
             <SocialConnectionForm
                 isLoading={isCreatingUserConnection}
                 onSave={onFormSubmit}
