@@ -48,6 +48,7 @@ export default function CreateCustomConnection({ onSave, onCanceled }: CustomCon
         if (!user) throw new Error("User not found");
         const connectionData: CreateConnectionData = {
             userId: user.userId,
+            connectionType: "CUSTOM",
             connectionName: formValues.name,
             url: formValues.url,
         }
@@ -62,6 +63,7 @@ export default function CreateCustomConnection({ onSave, onCanceled }: CustomCon
     return (
         <div>
             <CustomConnectionForm
+                connectionType="CUSTOM"
                 isLoading={isCreatingUserConnection}
                 onSave={createUserConnection}
                 onCanceled={cancelCreateUserConnection} />

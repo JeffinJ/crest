@@ -10,6 +10,8 @@ import { z } from "zod";
 //     url: string,
 // }
 
+export type ConnectionType = 'CUSTOM' | 'SOCIAL';
+
 export type SocialConnection = {
     id: string;
     name: string;
@@ -17,23 +19,26 @@ export type SocialConnection = {
     color?: string;
 };
 
-export type CreateConnectionData = {
-    userId: string;
-    connectionName: string;
-    url: string;
-};
-
 export interface Connection {
     id: number;
     userId: string;
     connectionName: string;
+    connectionType: ConnectionType;
     url: string;
     createdAt: string;
     updatedAt: string;
 }
 
+export type CreateConnectionData = {
+    userId: string;
+    connectionName: string;
+    connectionType: ConnectionType;
+    url: string;
+};
+
 export interface ConnectionFormData {
     connectionName: string;
+    connectionType: ConnectionType;
     url: string;
 }
 
@@ -50,3 +55,4 @@ export interface CreateConnectionProps {
 
 
 export type UserConnectionFormSchemaType = z.infer<typeof UserConnectionFormSchema>;
+export type UserSocialConnectionFormSchemaType = z.infer<typeof UserConnectionFormSchema>;

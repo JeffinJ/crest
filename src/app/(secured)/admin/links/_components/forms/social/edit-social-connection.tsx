@@ -1,20 +1,24 @@
 import { useAuth } from "@/providers/auth.context";
-import { z } from "zod";
+import { Connection, SocialConnection } from "@/types/connection.types";
 import { useAction } from "next-safe-action/hooks";
 import { editUserConnectionAction } from "@/server/actions/connections/connection.action";
 import { useToast } from "@/hooks/use-toast";
-import { EditUserConnectionSchema, EditUserConnectionSchemaType } from "@/lib/zod-schemas/user-connections";
-import CustomConnectionForm from "./custom-connection-form";
-import { Connection, UserConnectionFormSchemaType } from "@/types/connection.types";
+import SocialConnectionForm from "./social-connection-form";
+import { EditUserConnectionSchemaType, SocialConnectionFormSchema } from "@/lib/zod-schemas/user-connections";
+import { z } from "zod";
 
-
-type CustomConnectionFormProps = {
-    initialData: z.infer<typeof EditUserConnectionSchema>;
-    onSaved: (connectionData: Connection) => void;
+type EditSocialConnectionProps = {
+    platform: SocialConnection;
+    initilaData: EditUserConnectionSchemaType;
+    onSave: (connectionData: Connection) => void;
     onCanceled: () => void;
 };
 
-export default function EditCustomConnection({ initialData, onSaved, onCanceled }: CustomConnectionFormProps) {
+export default function EditSocialConnection({
+    platform,
+    initilaData,
+    onSave,
+    onCanceled }: EditSocialConnectionProps) {
     const { user } = useAuth();
     const { toast } = useToast();
 
@@ -26,14 +30,13 @@ export default function EditCustomConnection({ initialData, onSaved, onCanceled 
     } = useAction(editUserConnectionAction, {
         onSuccess: ({ data }) => {
             console.log(data);
-            console.log(editUserConnectionResult);
             toast({
                 variant: "default",
                 title: "Connection created",
                 description: "Connection created successfully",
                 duration: 5000,
             });
-            onSaved(editUserConnectionResult as Connection);
+            onSave(editUserConnectionResult as Connection);
         },
         onError: (error) => {
             console.error(error);
@@ -46,35 +49,33 @@ export default function EditCustomConnection({ initialData, onSaved, onCanceled 
         }
     });
 
-    const editUserConnection = (formValues: UserConnectionFormSchemaType) => {
+    const onFormSubmit = (formValues: z.infer<typeof SocialConnectionFormSchema>) => {
         console.log(formValues);
         if (!user) throw new Error("User not found");
 
         const connectionData: EditUserConnectionSchemaType = {
-            id: initialData.id,
-            userId: initialData.userId,
-            connectionName: formValues.name,
+            id: initilaData.id,
+            userId: user.userId,
+            connectionType: 'SOCIAL',
+            connectionName: platform.id,
             url: formValues.url,
         }
 
         executeEditUserConnectionAction(connectionData);
     };
 
-    const onCanceleEdit = () => {
+    const cancelCreateUserConnection = () => {
         resetEditUserConnectionAction();
         onCanceled();
     };
 
     return (
         <div>
-            <CustomConnectionForm
+            <SocialConnectionForm
+                initialData={initilaData}
                 isLoading={isEditingUserConnection}
-                initialData={{
-                    name: initialData.connectionName,
-                    url: initialData.url
-                }}
-                onSave={editUserConnection}
-                onCanceled={onCanceleEdit} />
+                onSave={onFormSubmit}
+                onCanceled={cancelCreateUserConnection} />
         </div>
     );
 };

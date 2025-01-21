@@ -6,10 +6,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { LoaderCircle } from "lucide-react";
 import { UserConnectionFormSchema } from "@/lib/zod-schemas/user-connections";
-import { UserConnectionFormSchemaType } from "@/types/connection.types";
+import { ConnectionType, UserConnectionFormSchemaType } from "@/types/connection.types";
 
 type CustomConnectionFormProps = {
     initialData?: z.infer<typeof UserConnectionFormSchema>;
+    connectionType: ConnectionType
     isLoading: boolean;
     onSave: (connectionData: UserConnectionFormSchemaType) => void;
     onCanceled: () => void;
@@ -30,6 +31,7 @@ export default function CustomConnectionForm({
     });
 
     const onFormSubmit = (formValues: z.infer<typeof UserConnectionFormSchema>) => {
+        customConnectionForm.reset(initialData);
         onSave(formValues);
     };
 

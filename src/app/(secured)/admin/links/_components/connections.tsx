@@ -36,8 +36,8 @@ export default function Connections() {
     if (isPending) return <CardSkeletonLoader />
 
     return (
-        <div className="flex flex-col space-y-5 w-full">
-            <div className="w-full">
+        <div className="w-full">
+            <div className="flex flex-col space-y-3 w-full transition-all duration-300">
                 {connections?.map((connection) => (
                     <ConnectionCard
                         key={connection.id}

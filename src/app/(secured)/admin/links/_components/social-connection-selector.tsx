@@ -2,9 +2,9 @@ import { ButtonWithGradient } from "@/components/ui/button-with-gradient";
 import { SUPPORTED_SOCIAL_PLATFORMS } from "@/config/app-config";
 import { SocialConnection } from "@/types/connection.types";
 import { useState } from "react";
-import SocialConnectionForm from "./social-connection-form";
 import { SiX } from "@icons-pack/react-simple-icons";
 import { useQueryClient } from "@tanstack/react-query";
+import CreateSocialConnection from "./forms/social/create-social-connection";
 
 export default function SocialConnectionSelector() {
     const [selectedPlatform, setSelectedPlatform] = useState<SocialConnection | null>(null);
@@ -18,9 +18,14 @@ export default function SocialConnectionSelector() {
         <div className="ring-1 p-5 rounded-md ring-gray-200 dark:ring-gray-800 flex flex-col space-y-3">
             {selectedPlatform ?
                 (
-                    <SocialConnectionForm
+                    // <SocialConnectionForm
+                    //     platform={selectedPlatform}
+                    //     initialData={{ url: "" }}
+                    //     isLoading={false}
+                    //     onSave={refreshConnections}
+                    //     onCanceled={() => { }} />
+                    <CreateSocialConnection
                         platform={selectedPlatform}
-                        initialData={{ url: "" }}
                         onSave={refreshConnections}
                         onCanceled={() => { }} />
                 )

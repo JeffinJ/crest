@@ -1,106 +1,54 @@
 import { ButtonWithGradient } from "@/components/ui/button-with-gradient";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/providers/auth.context";
-import { createUserConnectionAction } from "@/server/actions/connections/connection.action";
-import { CreateConnectionData, SocialConnection } from "@/types/connection.types";
+import { SocialConnectionFormSchema, SocialConnectionFormSchemaType } from "@/lib/zod-schemas/user-connections";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoaderCircle } from "lucide-react";
-import { useAction } from "next-safe-action/hooks";
+import { Link, LoaderCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
-const SocialConnectionFormSchema = z.object({
-    url: z.string(),
-});
 
 type SocialConnectionFormProps = {
-    platform: SocialConnection;
-    initialData?: z.infer<typeof SocialConnectionFormSchema>;
-    onSave: (connectionData: unknown) => void;
+    isLoading: boolean;
+    initialData?: SocialConnectionFormSchemaType;
+    onSave: (connectionData: SocialConnectionFormSchemaType) => void;
     onCanceled: () => void;
 };
 
 export default function SocialConnectionForm({
-    platform,
+    isLoading,
     initialData,
     onSave,
     onCanceled
 }: SocialConnectionFormProps) {
-    const { toast } = useToast();
-    const { user } = useAuth();
 
-    const socialConnectionForm = useForm<z.infer<typeof SocialConnectionFormSchema>>({
+    const socialConnectionForm = useForm<SocialConnectionFormSchemaType>({
         resolver: zodResolver(SocialConnectionFormSchema),
         defaultValues: {
             url: initialData?.url || "",
         }
     });
 
-    const {
-        execute: executeCreateUserConnectionAction,
-        result: createUserConnectionResult,
-        isExecuting: isCreatingUserConnection,
-        reset: resetCreateUserConnectionAction
-    } = useAction(createUserConnectionAction, {
-        onSuccess: ({ data }) => {
-            console.log(data);
-            socialConnectionForm.reset(initialData);
-            toast({
-                variant: "default",
-                title: "Connection created",
-                description: "Connection created successfully",
-                duration: 5000,
-            });
-            onSave(createUserConnectionResult.data);
-        },
-        onError: (error) => {
-            console.error(error);
-            toast({
-                variant: "destructive",
-                title: "Error",
-                description: "An error occurred while creating connection",
-                duration: 5000,
-            });
-        }
-    });
-
-    const onFormSubmit = (formValues: z.infer<typeof SocialConnectionFormSchema>) => {
-        console.log(formValues);
-        if (!user) throw new Error("User not found");
-
-        const connectionData: CreateConnectionData = {
-            userId: user.userId,
-            connectionName: platform.id,
-            url: formValues.url,
-        }
-
-        console.log(connectionData);
-
-
-        executeCreateUserConnectionAction(connectionData);
+    const onFormSubmit = (formValues: SocialConnectionFormSchemaType) => {
+        socialConnectionForm.reset(initialData);
+        onSave(formValues);
     };
 
     return (
         <Form {...socialConnectionForm}>
             <form onSubmit={socialConnectionForm.handleSubmit(onFormSubmit)}>
                 <div className="flex flex-col space-y-3">
-                    <div className="flex flex-row space-x-3 items-center justify-start">
-                        <platform.icon className="w-8 h-8" color={platform.color} />
-                        <div>{platform.name}</div>
-                    </div>
-                    <div className="flex flex-row space-x-2 items-center justify-start">
+                    <div className="flex flex-row space-x-2 items-center justify-start w-full">
                         <FormField
                             control={socialConnectionForm.control}
                             name="url"
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className="w-full flex flex-row items-center space-x-2">
+                                    <Link className="w-3 h-3 text-blue-500" />
                                     <FormControl>
                                         <Input
                                             {...field}
                                             placeholder="Profile URL"
-                                            className="placeholder-gray-400 dark:placeholder-gray-500" />
+                                            className="placeholder-gray-400 dark:placeholder-gray-500 w-full" />
                                     </FormControl>
                                 </FormItem>
                             )} />
@@ -110,13 +58,13 @@ export default function SocialConnectionForm({
                         <ButtonWithGradient
                             type="submit"
                             variant={'ghost'}
-                            disabled={isCreatingUserConnection}
+                            disabled={isLoading}
                             className="text-emerald-400 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-500"
                             gradientColors={{
                                 via1: "emerald-500",
                                 via2: "cyan-500"
                             }}>
-                            {isCreatingUserConnection ?
+                            {isLoading ?
                                 <>
                                     <LoaderCircle className="w-5 h-5 animate-spin" />
                                     <span className="ml-2">Saving...</span>
@@ -134,7 +82,6 @@ export default function SocialConnectionForm({
                             }}
                             onClick={() => {
                                 socialConnectionForm.reset(initialData);
-                                resetCreateUserConnectionAction();
                                 onCanceled();
                             }}>
                             Cancel

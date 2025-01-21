@@ -6,7 +6,7 @@ import { Link2 } from "lucide-react"
 import { useState } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import SocialConnectionSelector from "./social-connection-selector"
-import CreateCustomConnection from "./create-customer-connection"
+import CreateCustomConnection from "./forms/custom/create-custom-connection"
 
 type ConnectionType = "social" | "custom"
 
