@@ -13,11 +13,15 @@ import EditSocialConnection from "./forms/social/edit-social-connection";
 import Link from 'next/link'
 
 type ConnectionCardProps = {
+    isLoading: boolean,
     connection: Connection,
-    onDelete: (connection: Connection) => void,
+    onDelete: (id: number) => void,
 }
 
-export default function ConnectionCard({ connection }: ConnectionCardProps) {
+export default function ConnectionCard({
+    connection,
+    isLoading,
+    onDelete }: ConnectionCardProps) {
     const [mode, setMode] = useState<'view' | 'edit'>('view');
     const queryClinet = useQueryClient();
 
@@ -52,6 +56,7 @@ export default function ConnectionCard({ connection }: ConnectionCardProps) {
                         <ButtonWithGradient
                             type="button"
                             variant={'ghost'}
+                            disabled={isLoading}
                             onClick={() => setMode('edit')}
                             className="w-fit">
                             Edit
@@ -59,7 +64,8 @@ export default function ConnectionCard({ connection }: ConnectionCardProps) {
                         <Button
                             type="button"
                             variant={'ghost'}
-                            onClick={() => setMode('edit')}
+                            disabled={isLoading}
+                            onClick={() => { onDelete(connection.id) }}
                             className="w-fit text-red-400 hover:text-red-500">
                             <Trash2 size={20} />
                         </Button>
@@ -74,6 +80,7 @@ export default function ConnectionCard({ connection }: ConnectionCardProps) {
                             <Link
                                 href={connection.url}
                                 target="_blank"
+                                aria-disabled={isLoading}
                                 className="text-blue-500 hover:underline"
                             >
                                 {connection.url}

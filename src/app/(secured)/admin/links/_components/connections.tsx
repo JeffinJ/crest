@@ -3,11 +3,17 @@
 import CardSkeletonLoader from "@/components/card-skelton";
 import { useAuth } from "@/providers/auth.context";
 import { Connection } from "@/types/connection.types";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ConnectionCard from "./connection-card";
+import { useAction } from "next-safe-action/hooks";
+import { deleteUserConnectionAction } from "@/server/actions/connections/connection.action";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Connections() {
     const { jwt, user } = useAuth();
+    const queryClient = useQueryClient();
+    const { toast } = useToast();
+
     const {
         data: connections,
         isPending
@@ -33,6 +39,31 @@ export default function Connections() {
         refetchInterval: 5 * 60 * 1000
     })
 
+    const {
+        execute: executeDeleteUserConnectionAction,
+        isExecuting: isDeletingUserConnection,
+    } = useAction(deleteUserConnectionAction, {
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ["links"]
+            })
+            toast({
+                variant: "destructive",
+                title: "Connection deleted",
+                description: "Connection deleted successfully",
+                duration: 5000,
+            });
+            console.log("Connection deleted");
+        },
+        onError: (error) => {
+            console.error(error);
+        }
+    })
+
+    const deleteUserConnection = (id: number) => {
+        executeDeleteUserConnectionAction(id);
+    }
+
     if (isPending) return <CardSkeletonLoader />
 
     return (
@@ -41,8 +72,9 @@ export default function Connections() {
                 {connections?.map((connection) => (
                     <ConnectionCard
                         key={connection.id}
+                        isLoading={isDeletingUserConnection}
                         connection={connection}
-                        onDelete={()=>{}} />
+                        onDelete={deleteUserConnection} />
                 ))}
             </div>
         </div>

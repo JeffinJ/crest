@@ -4,12 +4,6 @@ import { Icon, IconProps } from "@tabler/icons-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 import { z } from "zod";
 
-// export type Connection = {
-//     id: 2,
-//     connectionName: string,
-//     url: string,
-// }
-
 export type ConnectionType = 'CUSTOM' | 'SOCIAL';
 
 export type SocialConnection = {

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const ConnectionType = z.enum(['CUSTOM', 'SOCIAL']);
 
-export const createUserConnectionSchema = z.object({
+export const CreateUserConnectionSchema = z.object({
     userId: z.string(),
     connectionType: ConnectionType,
     connectionName: z.string(),
@@ -26,6 +26,8 @@ export const SocialConnectionFormSchema = z.object({
     url: z.string(),
 });
 
-export type CreateUserConnectionSchemaType = z.infer<typeof createUserConnectionSchema>;
+export const DeleteUserConnectionSchema = z.number();
+
+export type CreateUserConnectionSchemaType = z.infer<typeof CreateUserConnectionSchema>;
 export type EditUserConnectionSchemaType = z.infer<typeof EditUserConnectionSchema>;
 export type SocialConnectionFormSchemaType = z.infer<typeof SocialConnectionFormSchema>;
