@@ -50,7 +50,7 @@ export default function UserPublicProfile({ user }: UserPublicProfileProps) {
 
     return (
         <div className="flex flex-col items-center justify-center h-screen p-5">
-            <div className="flex flex-col gap-y-3 p-10 rounded-md ring-1 ring-gray-800 w-[600px] h-screen overflow-y-auto">
+            <div className="flex flex-col gap-y-3 p-10 rounded-md ring-1 ring-gray-8-00 w-[600px] h-screen overflow-y-auto">
                 <div className="text-3xl w-full font-bold text-emerald-500">
                     {user.firstName} {user.lastName}
                 </div>
