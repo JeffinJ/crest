@@ -39,7 +39,7 @@ export const editUserConnectionAction = actionClient
 
         const JWT = authData.value;
         const responseData = await fetch(process.env.NEXT_PUBLIC_CREST_AUTH_CENTER_URL + '/auth/connection/' + editUserConnection.id, {
-            method: 'PUT',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${JWT}`,

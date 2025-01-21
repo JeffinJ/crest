@@ -5,16 +5,16 @@ import { editUserConnectionAction } from "@/server/actions/connections/connectio
 import { useToast } from "@/hooks/use-toast";
 import { EditUserConnectionSchema, EditUserConnectionSchemaType } from "@/lib/zod-schemas/user-connections";
 import CustomConnectionForm from "./custom-connection-form";
-import { UserConnectionFormSchemaType } from "@/types/connection.types";
+import { Connection, UserConnectionFormSchemaType } from "@/types/connection.types";
 
 
 type CustomConnectionFormProps = {
     initialData: z.infer<typeof EditUserConnectionSchema>;
-    onSaved: (connectionData: UserConnectionFormSchemaType) => void;
+    onSaved: (connectionData: Connection) => void;
     onCanceled: () => void;
 };
 
-export default function EditCustomConnection({ initialData, onCanceled }: CustomConnectionFormProps) {
+export default function EditCustomConnection({ initialData, onSaved, onCanceled }: CustomConnectionFormProps) {
     const { user } = useAuth();
     const { toast } = useToast();
 
@@ -33,6 +33,7 @@ export default function EditCustomConnection({ initialData, onCanceled }: Custom
                 description: "Connection created successfully",
                 duration: 5000,
             });
+            onSaved(editUserConnectionResult as Connection);
         },
         onError: (error) => {
             console.error(error);

@@ -9,6 +9,7 @@ import { useState } from "react";
 import { ButtonWithGradient } from "@/components/ui/button-with-gradient";
 import { SUPPORTED_SOCIAL_PLATFORMS } from "@/config/app-config";
 import EditCustomConnection from "./edit-customer-connection";
+import { useQueryClient } from "@tanstack/react-query";
 
 type ConnectionCardProps = {
     connection: Connection,
@@ -17,6 +18,7 @@ type ConnectionCardProps = {
 
 export default function ConnectionCard({ connection }: ConnectionCardProps) {
     const [mode, setMode] = useState<'view' | 'edit'>('view');
+    const queryClinet = useQueryClient();
 
     let Icon = SUPPORTED_SOCIAL_PLATFORMS.find((socialConnection) => socialConnection.id === connection.connectionName);
     if (!Icon) Icon = {
@@ -24,6 +26,17 @@ export default function ConnectionCard({ connection }: ConnectionCardProps) {
         name: 'Custom',
         icon: Radar,
         color: SiWhatsappHex,
+    }
+
+    const refreshConnections = () => {
+        queryClinet.invalidateQueries({
+            queryKey: ["links"]
+        })
+    }
+
+    const onEditComplete = () => {
+        refreshConnections();
+        setMode('view');
     }
 
     return (
@@ -71,7 +84,7 @@ export default function ConnectionCard({ connection }: ConnectionCardProps) {
                                 connectionName: connection.connectionName,
                                 url: connection.url,
                             }}
-                            onSaved={()=>{}}
+                            onSaved={onEditComplete}
                             onCanceled={() => {
                                 setMode('view')
                             }} />
