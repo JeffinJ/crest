@@ -4,10 +4,16 @@ import { SocialConnection } from "@/types/connection.types";
 import { useState } from "react";
 import SocialConnectionForm from "./social-connection-form";
 import { SiX } from "@icons-pack/react-simple-icons";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function SocialConnectionSelector() {
     const [selectedPlatform, setSelectedPlatform] = useState<SocialConnection | null>(null);
-
+    const queryClinet = useQueryClient();
+    const refreshConnections = () => {
+        queryClinet.invalidateQueries({
+            queryKey: ["links"]
+        })
+    }
     return (
         <div className="ring-1 p-5 rounded-md ring-gray-200 dark:ring-gray-800 flex flex-col space-y-3">
             {selectedPlatform ?
@@ -15,7 +21,7 @@ export default function SocialConnectionSelector() {
                     <SocialConnectionForm
                         platform={selectedPlatform}
                         initialData={{ url: "" }}
-                        onSave={() => { }}
+                        onSave={refreshConnections}
                         onCanceled={() => { }} />
                 )
                 :

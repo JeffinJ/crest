@@ -1,85 +1,31 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Connection, SocialConnection } from "@/types/connection.types";
+import { Connection } from "@/types/connection.types";
 import {
-    SiFacebook,
-    SiFacebookHex,
-    SiGithub,
-    SiInstagram,
-    SiInstagramHex,
-    SiTiktok,
-    SiWhatsapp,
-    SiWhatsappHex,
-    SiX,
-    SiYoutube,
-    SiYoutubeHex
+    SiWhatsappHex
 } from "@icons-pack/react-simple-icons";
-import { IconBrandLinkedin } from "@tabler/icons-react";
-import { Link, Radar } from "lucide-react";
+import { Link, Radar, Trash2 } from "lucide-react";
 import { useState } from "react";
-import CustomConnectionForm from "./custom-connection-form";
+import { ButtonWithGradient } from "@/components/ui/button-with-gradient";
+import { SUPPORTED_SOCIAL_PLATFORMS } from "@/config/app-config";
+import EditCustomConnection from "./edit-customer-connection";
 
 type ConnectionCardProps = {
-    connection: Connection
+    connection: Connection,
+    onDelete: (connection: Connection) => void,
 }
-
-const SupportedSocialConnections: SocialConnection[] = [
-    {
-        id: 'x',
-        name: "X",
-        icon: SiX,
-    },
-    {
-        id: 'instagram',
-        name: "Instagram",
-        icon: SiInstagram,
-        color: SiInstagramHex,
-    },
-    {
-        id: 'youtube',
-        name: "YouTube",
-        icon: SiYoutube,
-        color: SiYoutubeHex,
-    },
-    {
-        id: 'tiktok',
-        name: "TikTok",
-        icon: SiTiktok,
-    },
-    {
-        id: 'linkedin',
-        name: "LinkedIn",
-        icon: IconBrandLinkedin,
-    },
-    {
-        id: 'github',
-        name: "GitHub",
-        icon: SiGithub,
-    },
-    {
-        id: 'facebook',
-        name: "Facebook",
-        icon: SiFacebook,
-        color: SiFacebookHex,
-    },
-    {
-        id: 'whatsapp',
-        name: "WhatsApp",
-        icon: SiWhatsapp,
-        color: SiWhatsappHex,
-    },
-];
 
 export default function ConnectionCard({ connection }: ConnectionCardProps) {
     const [mode, setMode] = useState<'view' | 'edit'>('view');
 
-    let Icon = SupportedSocialConnections.find((socialConnection) => socialConnection.id === connection.connectionName);
+    let Icon = SUPPORTED_SOCIAL_PLATFORMS.find((socialConnection) => socialConnection.id === connection.connectionName);
     if (!Icon) Icon = {
         id: 'custom',
         name: 'Custom',
         icon: Radar,
         color: SiWhatsappHex,
     }
+
     return (
         <Card className="w-full">
             <CardHeader>
@@ -88,13 +34,22 @@ export default function ConnectionCard({ connection }: ConnectionCardProps) {
                         {Icon && <Icon.icon size={20} color={Icon.color} />}
                         <CardTitle>{connection.connectionName}</CardTitle>
                     </div>
-                    <Button
-                        type="button"
-                        variant={'ghost'}
-                        onClick={() => setMode('edit')}
-                        className="w-fit">
-                        Edit
-                    </Button>
+                    <div className="flex flex-row items-center space-x-1 justify-center">
+                        <ButtonWithGradient
+                            type="button"
+                            variant={'ghost'}
+                            onClick={() => setMode('edit')}
+                            className="w-fit">
+                            Edit
+                        </ButtonWithGradient>
+                        <Button
+                            type="button"
+                            variant={'ghost'}
+                            onClick={() => setMode('edit')}
+                            className="w-fit text-red-400 hover:text-red-500">
+                            <Trash2 size={20} />
+                        </Button>
+                    </div>
                 </div>
             </CardHeader>
             <CardContent>
@@ -109,12 +64,14 @@ export default function ConnectionCard({ connection }: ConnectionCardProps) {
                     </div>
                 ) : (
                     <div className="">
-                        <CustomConnectionForm
+                        <EditCustomConnection
                             initialData={{
-                                name: connection.connectionName,
+                                id: connection.id,
+                                userId: connection.userId,
+                                connectionName: connection.connectionName,
                                 url: connection.url,
                             }}
-                            onSave={() => { }}
+                            onSaved={()=>{}}
                             onCanceled={() => {
                                 setMode('view')
                             }} />

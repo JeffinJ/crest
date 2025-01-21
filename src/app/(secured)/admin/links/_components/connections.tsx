@@ -41,7 +41,8 @@ export default function Connections() {
                 {connections?.map((connection) => (
                     <ConnectionCard
                         key={connection.id}
-                        connection={connection} />
+                        connection={connection}
+                        onDelete={()=>{}} />
                 ))}
             </div>
         </div>

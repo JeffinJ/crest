@@ -3,7 +3,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/providers/auth.context";
-import { createUserConnectionAction } from "@/server/actions/connections/create-connection.action";
+import { createUserConnectionAction } from "@/server/actions/connections/connection.action";
 import { CreateConnectionData, SocialConnection } from "@/types/connection.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircle } from "lucide-react";

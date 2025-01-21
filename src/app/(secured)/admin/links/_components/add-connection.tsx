@@ -4,9 +4,9 @@ import { ButtonWithGradient } from "@/components/ui/button-with-gradient"
 import { IconSocial } from "@tabler/icons-react"
 import { Link2 } from "lucide-react"
 import { useState } from "react"
-import CustomConnectionForm from "./custom-connection-form"
 import { useQueryClient } from "@tanstack/react-query"
 import SocialConnectionSelector from "./social-connection-selector"
+import CreateCustomConnection from "./create-customer-connection"
 
 type ConnectionType = "social" | "custom"
 
@@ -19,6 +19,7 @@ export default function AddConnection() {
             queryKey: ["links"]
         })
     }
+
     return (
         <div className="flex flex-col space-y-5">
             <div className="flex flex-row space-x-5">
@@ -36,25 +37,26 @@ export default function AddConnection() {
                 </ButtonWithGradient>
             </div>
 
-            {
-                selectedConnection && (
-                    <>
-                        {selectedConnection === 'custom' ?
-                            <div className="flex flex-col space-y-5 ring-1 p-5 rounded-md ring-gray-200 dark:ring-gray-800">
-                                <div className="font-semibold text-emerald-500">Add custom connection</div>
-                                <CustomConnectionForm
-                                    onSave={refreshConnections}
-                                    onCanceled={() => {
-                                        setSelectedConnection(null)
-                                    }} />
-                            </div> :
-                            <div>
-                                <SocialConnectionSelector />
-                            </div>
-                        }
-                    </>
-                )
-            }
+            {selectedConnection && (
+                <>
+                    {selectedConnection === 'custom' ?
+                        <div className="flex flex-col space-y-5 ring-1 p-5 rounded-md ring-gray-200 dark:ring-gray-800">
+                            <div className="font-semibold text-emerald-500">Add custom connection</div>
+                            <CreateCustomConnection
+                                onSave={(connectionData) => {
+                                    console.log(connectionData);
+                                    refreshConnections()
+                                }}
+                                onCanceled={() => {
+                                    setSelectedConnection(null)
+                                }} />
+                        </div> :
+                        <div>
+                            <SocialConnectionSelector />
+                        </div>
+                    }
+                </>
+            )}
         </div>
     )
 }  
