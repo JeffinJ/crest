@@ -11,6 +11,7 @@ import { SUPPORTED_SOCIAL_PLATFORMS } from "@/config/app-config";
 import { useQueryClient } from "@tanstack/react-query";
 import EditSocialConnection from "./forms/social/edit-social-connection";
 import Link from 'next/link'
+import { ConfirmAction } from "@/components/confirm-action-dialog";
 
 type ConnectionCardProps = {
     isLoading: boolean,
@@ -61,14 +62,14 @@ export default function ConnectionCard({
                             className="w-fit">
                             Edit
                         </ButtonWithGradient>
-                        <Button
-                            type="button"
-                            variant={'ghost'}
-                            disabled={isLoading}
-                            onClick={() => { onDelete(connection.id) }}
-                            className="w-fit text-red-400 hover:text-red-500">
-                            <Trash2 size={20} />
-                        </Button>
+                        <ConfirmAction
+                            trigger={<Button variant="ghost"><Trash2 size={20} /></Button>}
+                            title="Delete Connection"
+                            description="Are you sure you want to delete this connection?"
+                            confirmText="Delete"
+                            variant="destructive"
+                            onConfirm={() => { onDelete(connection.id) }}
+                        />
                     </div>
                 </div>
             </CardHeader>
