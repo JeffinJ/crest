@@ -1,6 +1,6 @@
 "use client"
 import FullScreenLoader from "@/components/fullscreen-loader"
-import { User } from "@/types/auth.tyes"
+import { User } from "@/types/user.types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { createContext, useContext } from "react"

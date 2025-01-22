@@ -1,10 +1,11 @@
 import { Connection } from "./connection.types";
 
-export type UserPublicProfileType = {
+export interface User {
     id: number;
     userId: string;
     userName: string;
     email: string;
+    bio: string;
     firstName: string;
     lastName: string;
     profilePictureUrl: string;
@@ -16,5 +17,8 @@ export type UserPublicProfileType = {
     refreshToken: string;
     created_at: string;
     updated_at: string;
+}
+
+export type UserPublicProfileType = User & {
     connections: Connection[];
 };
