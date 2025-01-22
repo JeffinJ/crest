@@ -6,9 +6,9 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
-import { User } from "@/types/auth.tyes"
 import { HelpCircle, LucideLogOut, Settings2Icon } from "lucide-react"
 import { useAuth } from "@/providers/auth.context"
+import { User } from "@/types/user.types"
 
 type ProfileMenuProps = {
     user: User

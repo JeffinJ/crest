@@ -24,7 +24,7 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/providers/auth.context"
-import { User } from "@/types/auth.tyes"
+import { User } from "@/types/user.types"
 
 export function NavUser({
     user,
