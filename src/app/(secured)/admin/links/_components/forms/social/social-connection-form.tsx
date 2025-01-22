@@ -3,7 +3,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { Input } from "@/components/ui/input";
 import { SocialConnectionFormSchema, SocialConnectionFormSchemaType } from "@/lib/zod-schemas/user-connections";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, LoaderCircle } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 
