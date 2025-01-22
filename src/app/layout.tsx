@@ -5,6 +5,8 @@ import { getServerSession } from "@/lib/auth/session";
 import QueryClientWrapper from "@/providers/query-client.provider";
 import { AuthProvider } from "@/providers/auth.context";
 import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@vercel/analytics/react";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +40,8 @@ export default async function RootLayout({
           <AuthProvider jwt={token}>
             <div className="flex flex-col h-screen overflow-hidden px-5 font-sans">
               {children}
-              <Toaster/>
+              <Analytics />
+              <Toaster />
             </div>
           </AuthProvider>
         </QueryClientWrapper>
