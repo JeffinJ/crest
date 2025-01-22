@@ -1,5 +1,5 @@
 import { ButtonWithGradient } from "@/components/ui/button-with-gradient";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SocialConnectionFormSchema, SocialConnectionFormSchemaType } from "@/lib/zod-schemas/user-connections";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +23,7 @@ export default function SocialConnectionForm({
 
     const socialConnectionForm = useForm<SocialConnectionFormSchemaType>({
         resolver: zodResolver(SocialConnectionFormSchema),
+        mode: 'onSubmit',
         defaultValues: {
             url: initialData?.url || "",
         }
@@ -42,14 +43,14 @@ export default function SocialConnectionForm({
                             control={socialConnectionForm.control}
                             name="url"
                             render={({ field }) => (
-                                <FormItem className="w-full flex flex-row items-center space-x-2">
-                                    <Link className="w-3 h-3 text-blue-500" />
+                                <FormItem className="w-full space-x-2">
                                     <FormControl>
                                         <Input
                                             {...field}
                                             placeholder="Profile URL"
                                             className="placeholder-gray-400 dark:placeholder-gray-500 w-full" />
                                     </FormControl>
+                                    <FormMessage className="text-red-400 font-normal text-start w-full" />
                                 </FormItem>
                             )} />
                     </div>

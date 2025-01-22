@@ -27,7 +27,9 @@ export const UserConnectionFormSchema = z.object({
 });
 
 export const SocialConnectionFormSchema = z.object({
-    url: z.string(),
+    url: z.string().nonempty({
+        message: 'Profile URL is required'
+    }),
 });
 
 export const DeleteUserConnectionSchema = z.number();
