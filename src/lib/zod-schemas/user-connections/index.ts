@@ -18,8 +18,12 @@ export const EditUserConnectionSchema = z.object({
 });
 
 export const UserConnectionFormSchema = z.object({
-    name: z.string(),
-    url: z.string(),
+    name: z.string().nonempty({
+        message: 'Connection name is required'
+    }),
+    url: z.string().nonempty({
+        message: 'URL is required'
+    }),
 });
 
 export const SocialConnectionFormSchema = z.object({

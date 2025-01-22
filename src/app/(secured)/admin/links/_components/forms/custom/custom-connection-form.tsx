@@ -1,5 +1,5 @@
 import { ButtonWithGradient } from "@/components/ui/button-with-gradient";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -24,6 +24,7 @@ export default function CustomConnectionForm({
 
     const customConnectionForm = useForm<z.infer<typeof UserConnectionFormSchema>>({
         resolver: zodResolver(UserConnectionFormSchema),
+        mode: 'onSubmit',
         defaultValues: {
             name: initialData?.name || "",
             url: initialData?.url || "",
@@ -51,6 +52,7 @@ export default function CustomConnectionForm({
                                             className="placeholder-gray-400 dark:placeholder-gray-500"
                                             placeholder="Connection name" />
                                     </FormControl>
+                                    <FormMessage className="text-red-400 font-normal" />
                                 </FormItem>
                             )} />
 
@@ -65,6 +67,7 @@ export default function CustomConnectionForm({
                                             className="placeholder-gray-400 dark:placeholder-gray-500"
                                             placeholder="URL" />
                                     </FormControl>
+                                    <FormMessage className="text-red-400 font-normal" />
                                 </FormItem>
                             )} />
 
